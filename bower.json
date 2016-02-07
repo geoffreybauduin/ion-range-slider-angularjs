@@ -1,0 +1,29 @@
+{
+  "name": "ion.rangeslider-angularjs",
+  "version": "1.0.0",
+  "homepage": "https://github.com/lght/ionic-range-slider-angularjs/",
+  "authors": [
+    "Geoffrey Bauduin <bauduin.geo@gmail.com>"
+  ],
+  "description": "ionic Range Slider for AngularJS",
+  "main": "ionic-range-slider.js",
+  "keywords": [
+    "angularjs",
+    "angular",
+    "ionic",
+    "slider",
+    "rangeslider",
+    "ion.rangeslider"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ion.rangeslider": "2.1.2"
+  }
+}
