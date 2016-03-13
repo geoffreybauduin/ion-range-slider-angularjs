@@ -25,7 +25,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 from: "=",
                 to: "=",
                 disable: "=",
-                onChange: "&",
+                onChange: "&onChange",
                 onFinish: "&"
             },
             replace: true,
@@ -47,9 +47,11 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     from: $scope.from,
                     to: $scope.to,
                     disable: $scope.disable,
-                    onChange: function () {
-                        console.log("changed", arguments);
-                        $scope.onChange && $scope.onChange();
+                    onChange: function (a) {
+                        console.log("changed", a);
+                        $scope.onChange && $scope.onChange({
+                            a: a
+                        });
                     },
                     onFinish: $scope.onFinish
                 });
