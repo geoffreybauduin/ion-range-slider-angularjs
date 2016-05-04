@@ -30,7 +30,6 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
             },
             replace: true,
             link: function ($scope, $element) {
-                console.log($scope);
                 $element.ionRangeSlider({
                     min: $scope.min,
                     max: $scope.max,
@@ -48,7 +47,6 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     to: $scope.to,
                     disable: $scope.disable,
                     onChange: function (a) {
-                        console.log("changed", a);
                         $scope.onChange && $scope.onChange({
                             a: a
                         });
