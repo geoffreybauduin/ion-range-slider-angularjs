@@ -25,7 +25,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 from: "=",
                 to: "=",
                 disable: "=",
-                onChange: "&onChange",
+                onChange: "&",
                 onFinish: "&"
             },
             replace: true,
@@ -47,11 +47,15 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     to: $scope.to,
                     disable: $scope.disable,
                     onChange: function (a) {
-                        $scope.onChange && $scope.onChange({
-                            a: a
+                        $scope.onChange && $scope.$apply(function () {
+                            $scope.onChange({
+                                a: a
+                            });
                         });
                     },
-                    onFinish: $scope.onFinish
+                    onFinish: function () {
+                        $scope.$apply($scope.onFinish);
+                    }
                 });
                 var watchers = [];
                 watchers.push($scope.$watch("min", function (value) {
