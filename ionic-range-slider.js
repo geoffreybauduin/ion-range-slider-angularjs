@@ -25,7 +25,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 from: "=",
                 to: "=",
                 disable: "=",
-                onChange: "&onChange",
+                onChange: "&",
                 onFinish: "&"
             },
             replace: true,
@@ -47,11 +47,17 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     to: $scope.to,
                     disable: $scope.disable,
                     onChange: function (a) {
-                        $scope.onChange && $scope.onChange({
-                            a: a
+                        $scope.$apply(function () {
+                            $scope.from = a.from;
+                            $scope.to = a.to;
+                            $scope.onChange && $scope.onChange({
+                                a: a
+                            });
                         });
                     },
-                    onFinish: $scope.onFinish
+                    onFinish: function () {
+                        $scope.$apply($scope.onFinish);
+                    }
                 });
                 var watchers = [];
                 watchers.push($scope.$watch("min", function (value) {
@@ -65,9 +71,20 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     });
                 }));
                 watchers.push($scope.$watch('from', function (value) {
-                    $element.data("ionRangeSlider").update({
-                        from: value
-                    });
+                    var slider = $element.data("ionRangeSlider");
+                    if (slider.old_from !== value) {
+                        slider.update({
+                            from: value
+                        });
+                    }
+                }));
+                watchers.push($scope.$watch('to', function (value) {
+                    var slider = $element.data("ionRangeSlider");
+                    if (slider.old_to !== value) {
+                        slider.update({
+                            to: value
+                        });
+                    }
                 }));
                 watchers.push($scope.$watch('disable', function (value) {
                     $element.data("ionRangeSlider").update({
