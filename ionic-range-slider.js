@@ -15,7 +15,6 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 type: "@",
                 prefix: "@",
                 maxPostfix: "@",
-                prettify: "@",
                 grid: "@",
                 gridMargin: "@",
                 postfix: "@",
@@ -25,6 +24,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 from: "=",
                 to: "=",
                 disable: "=",
+                prettify: "&",
                 onChange: "&",
                 onFinish: "&"
             },
@@ -36,7 +36,6 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     type: $scope.type,
                     prefix: $scope.prefix,
                     maxPostfix: $scope.maxPostfix,
-                    prettify: $scope.prettify,
                     grid: $scope.grid,
                     gridMargin: $scope.gridMargin,
                     postfix: $scope.postfix,
@@ -46,6 +45,12 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     from: $scope.from,
                     to: $scope.to,
                     disable: $scope.disable,
+                    prettify: function (value) {
+                      if(!$scope.prettify) {
+                        return value;
+                      }
+                      return $scope.prettify({value: value});
+                    },
                     onChange: function (a) {
                         $scope.$apply(function () {
                             $scope.from = a.from;
