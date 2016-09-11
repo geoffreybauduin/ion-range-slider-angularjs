@@ -6,46 +6,96 @@ angular.module("ion.rangeslider", []);
 
 angular.module("ion.rangeslider").directive("ionRangeSlider", [
     function () {
-        
+
         return {
             restrict: "E",
             scope: {
                 min: "=",
                 max: "=",
-                type: "@",
-                prefix: "@",
-                maxPostfix: "@",
-                prettify: "@",
-                grid: "@",
-                gridMargin: "@",
-                postfix: "@",
-                step: "@",
-                hideMinMax: "@",
-                hideFromTo: "@",
                 from: "=",
                 to: "=",
                 disable: "=",
+
+                type: "@",
+                step: "@",
+                minInterval: "@",
+                maxInterval: "@",
+                dragInterval: "@",
+                values: "@",
+                fromFixed: "@",
+                fromMin: "@",
+                fromMax: "@",
+                fromShadow: "@",
+                toFixed: "@",
+                toMax: "@",
+                toShadow: "@",
+                prettifyEnabled: "@",
+                prettifySeparator: "@",
+                forceEdges: "@",
+                keyboard: "@",
+                keyboardStep: "@",
+                grid: "@",
+                gridMargin: "@",
+                gridNum: "@",
+                gridSnap: "@",
+                hideMinMax: "@",
+                hideFromTo: "@",
+                prefix: "@",
+                postfix: "@",
+                maxPostfix: "@",
+                decorateBoth: "@",
+                valuesSeparator: "@",
+                inputValuesSeparator: "@",
+
+                prettify: "&",
                 onChange: "&",
-                onFinish: "&"
+                onFinish: "&",
             },
             replace: true,
-            link: function ($scope, $element) {
+            link: function ($scope, $element, attrs) {
                 $element.ionRangeSlider({
                     min: $scope.min,
                     max: $scope.max,
-                    type: $scope.type,
-                    prefix: $scope.prefix,
-                    maxPostfix: $scope.maxPostfix,
-                    prettify: $scope.prettify,
-                    grid: $scope.grid,
-                    gridMargin: $scope.gridMargin,
-                    postfix: $scope.postfix,
-                    step: $scope.step,
-                    hideMinMax: $scope.hideMinMax,
-                    hideFromTo: $scope.hideFromTo,
                     from: $scope.from,
                     to: $scope.to,
                     disable: $scope.disable,
+                    type: $scope.type,
+                    step: $scope.step,
+                    minInterval: $scope.min_interval,
+                    maxInterval: $scope.max_interval,
+                    dragInterval: $scope.drag_interval,
+                    values: $scope.values,
+                    fromFixed: $scope.from_fixed,
+                    fromMin: $scope.from_min,
+                    fromMax: $scope.from_max,
+                    fromShadow: $scope.from_shadow,
+                    toFixed: $scope.to_fixed,
+                    toMax: $scope.to_max,
+                    toShadow: $scope.to_shadow,
+                    prettifyEnabled: $scope.prettify_enabled,
+                    prettifySeparator: $scope.prettify_separator,
+                    forceEdges: $scope.force_edges,
+                    keyboard: $scope.keyboard,
+                    keyboardStep: $scope.keyboard_step,
+                    grid: $scope.grid,
+                    gridMargin: $scope.grid_margin,
+                    gridNum: $scope.grid_num,
+                    gridSnap: $scope.grid_snap,
+                    hideMinMax: $scope.hide_min_max,
+                    hideFromTo: $scope.hide_from_to,
+                    prefix: $scope.prefix,
+                    postfix: $scope.postfix,
+                    maxPostfix: $scope.max_postfix,
+                    decorateBoth: $scope.decorate_both,
+                    valuesSeparator: $scope.values_separator,
+                    inputValuesSeparator: $scope.input_values_separator,
+
+                    prettify: function (value) {
+                      if(!attrs.prettify) {
+                        return value;
+                      }
+                      return $scope.prettify({value: value});
+                    },
                     onChange: function (a) {
                         $scope.$apply(function () {
                             $scope.from = a.from;
@@ -57,7 +107,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     },
                     onFinish: function () {
                         $scope.$apply($scope.onFinish);
-                    }
+                    },
                 });
                 var watchers = [];
                 watchers.push($scope.$watch("min", function (value) {
@@ -93,6 +143,6 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 }));
             }
         }
-        
+
     }
 ])
