@@ -52,7 +52,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 onFinish: "&",
             },
             replace: true,
-            link: function ($scope, $element, attrs) {
+            link: function ($scope, $element, attrs, $timeout) {
                 $element.ionRangeSlider({
                     min: $scope.min,
                     max: $scope.max,
@@ -106,7 +106,9 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                         });
                     },
                     onFinish: function () {
-                        $scope.$apply($scope.onFinish);
+                        $timeout(function() {
+                            $scope.$apply($scope.onFinish);
+                        });
                     },
                 });
                 var watchers = [];
