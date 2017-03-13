@@ -4,9 +4,8 @@
 
 angular.module("ion.rangeslider", []);
 
-angular.module("ion.rangeslider").directive("ionRangeSlider", [
-    function () {
-
+angular.module("ion.rangeslider").directive("ionRangeSlider",
+    function($timeout) {
         return {
             restrict: "E",
             scope: {
@@ -52,7 +51,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                 onFinish: "&",
             },
             replace: true,
-            link: function ($scope, $element, attrs, $timeout) {
+            link: function($scope, $element, attrs) {
                 $element.ionRangeSlider({
                     min: $scope.min,
                     max: $scope.max,
@@ -90,14 +89,16 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                     valuesSeparator: $scope.values_separator,
                     inputValuesSeparator: $scope.input_values_separator,
 
-                    prettify: function (value) {
-                      if(!attrs.prettify) {
-                        return value;
-                      }
-                      return $scope.prettify({value: value});
+                    prettify: function(value) {
+                        if (!attrs.prettify) {
+                            return value;
+                        }
+                        return $scope.prettify({
+                            value: value
+                        });
                     },
-                    onChange: function (a) {
-                        $scope.$apply(function () {
+                    onChange: function(a) {
+                        $scope.$apply(function() {
                             $scope.from = a.from;
                             $scope.to = a.to;
                             $scope.onChange && $scope.onChange({
@@ -105,24 +106,24 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                             });
                         });
                     },
-                    onFinish: function () {
+                    onFinish: function() {
                         $timeout(function() {
                             $scope.$apply($scope.onFinish);
                         });
                     },
                 });
                 var watchers = [];
-                watchers.push($scope.$watch("min", function (value) {
+                watchers.push($scope.$watch("min", function(value) {
                     $element.data("ionRangeSlider").update({
                         min: value
                     });
                 }));
-                watchers.push($scope.$watch('max', function (value) {
+                watchers.push($scope.$watch('max', function(value) {
                     $element.data("ionRangeSlider").update({
                         max: value
                     });
                 }));
-                watchers.push($scope.$watch('from', function (value) {
+                watchers.push($scope.$watch('from', function(value) {
                     var slider = $element.data("ionRangeSlider");
                     if (slider.old_from !== value) {
                         slider.update({
@@ -130,7 +131,7 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                         });
                     }
                 }));
-                watchers.push($scope.$watch('to', function (value) {
+                watchers.push($scope.$watch('to', function(value) {
                     var slider = $element.data("ionRangeSlider");
                     if (slider.old_to !== value) {
                         slider.update({
@@ -138,13 +139,13 @@ angular.module("ion.rangeslider").directive("ionRangeSlider", [
                         });
                     }
                 }));
-                watchers.push($scope.$watch('disable', function (value) {
+                watchers.push($scope.$watch('disable', function(value) {
                     $element.data("ionRangeSlider").update({
                         disable: value
                     });
                 }));
             }
-        }
+        };
 
     }
-])
+);
