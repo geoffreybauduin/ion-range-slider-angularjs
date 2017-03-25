@@ -18,7 +18,7 @@ angular.module("app").controller("Controller", function ($scope) {
 
 ```
 <div ng-controller="Controller">
-    <ion-range-slider min="18" max="60" from="model.age.min" to="model.age.max"></ion-range-slider>
+    <input ion-range-slider min="18" max="60" from="model.age.min" to="model.age.max" />
 </div>
 ```
 
