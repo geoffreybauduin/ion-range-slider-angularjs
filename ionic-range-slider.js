@@ -5,7 +5,7 @@
 angular.module("ion.rangeslider", []);
 
 angular.module("ion.rangeslider").directive("ionRangeSlider",
-    function($timeout) {
+    ['$timeout', function($timeout) {
         return {
             restrict: "A",
             scope: {
@@ -147,5 +147,5 @@ angular.module("ion.rangeslider").directive("ionRangeSlider",
             }
         };
 
-    }
+    }]
 );
