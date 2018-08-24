@@ -126,17 +126,29 @@ angular.module("ion.rangeslider").directive("ionRangeSlider",
                 watchers.push($scope.$watch('from', function(value) {
                     var slider = $element.data("ionRangeSlider");
                     if (slider.old_from !== value) {
-                        slider.update({
-                            from: value
-                        });
+                        
+                        if(value <= slider.old_to) {
+                            slider.update({
+                                from: value
+                            });
+                        } else {
+                            slider.update({from: value, to: value});
+                        }
+                        
                     }
                 }));
                 watchers.push($scope.$watch('to', function(value) {
                     var slider = $element.data("ionRangeSlider");
                     if (slider.old_to !== value) {
-                        slider.update({
-                            to: value
-                        });
+                        
+                        if(value >= slider.old_from) {
+                            slider.update({
+                                to: value
+                            });
+                        } else {
+                            slider.update({from: value, to: value});
+                        }
+                        
                     }
                 }));
                 watchers.push($scope.$watch('disable', function(value) {
